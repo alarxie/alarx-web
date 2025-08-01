@@ -1,0 +1,65 @@
+
+<head>
+    <link rel="stylesheet" href="../ss.css">
+</head>
+
+<br>
+
+<body>
+    <h1 style="line-height: .1;" class="mh">[alarx-web]</h1>
+    <p style="font-size: 30;line-height: .1;" class="mp">> forums</p>
+</body>
+
+<ul>
+      <li><a class="../home" href="..\home">home</a></li>
+      <li><a class="active" href="../forums">forums</a></li>
+      <li><a class="../people" href="../people">people</a></li>
+      <li><a class="../rules" href="../rules">rules</a></li>
+      <li><a class="../more" href="../more">more</a></li>
+</ul>
+
+<body>
+      <!-- <p style="font-size: 20;" class="mp">post anything!</p> -->
+  <br>
+
+  <a href="../post/">
+    <button hre style="display: inline-block; width: 2%; aspect-ratio: 1; font-size: large;font-weight: bolder;" type="poster">+</button>
+  </a>
+  <h1 style="display: inline-block;line-height: .1;">[who's talkin'?]</h1>
+
+  <div id="posts"></div>
+
+  <script>
+    const form = document.getElementById('postForm');
+    const postsDiv = document.getElementById('posts');
+
+    async function loadPosts() {
+      const res = await fetch('/api/posts');
+      const posts = await res.json();
+
+      postsDiv.innerHTML = posts.map(p => `
+      <div class="post">
+        <h1 class="post-title";font-size: 40;" class="mh">${p.subject}</h1>
+        <p>${p.usernameUsed}</p>
+        <p class="post-content";style="line-height: 1;font-size: 20;" class="mp">${p.question}</p>
+        <button class="toggle-btn">Read more</button>
+        <p>${new Date(p.timestamp).toLocaleString()}</p>
+      </div>`).join('');
+
+          document.querySelectorAll('.toggle-btn').forEach(button => {
+    button.addEventListener('click', () => {
+      const post = button.closest('.post');
+      post.classList.toggle('expanded');
+
+
+      button.textContent = post.classList.contains('expanded')
+        ? 'Read less'
+        : 'Read more';
+      });
+    });
+
+    }
+
+    loadPosts();
+  </script>
+</body>
