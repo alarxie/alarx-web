@@ -56,6 +56,10 @@ background-color: rgb(16, 27, 37);
   text-overflow: ellipsis;
   white-space: normal;
 }
+.post.expanded .post-content {
+  -webkit-line-clamp: unset;
+  max-height: none;
+}
 
 input, textarea,button {
   vertical-align: middle;
