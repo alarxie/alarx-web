@@ -15,6 +15,7 @@
       <li><a class="active" href="../forums">forums</a></li>
       <li><a class="../people" href="../people">people</a></li>
       <li><a class="../rules" href="../rules">rules</a></li>
+      <li><a class="../account" href="../account">account</a></li>
       <li><a class="../more" href="../more">more</a></li>
 </ul>
 
@@ -49,7 +50,6 @@
           document.querySelectorAll('.toggle-btn').forEach(button => {
     button.addEventListener('click', () => {
       const post = button.closest('.post');
-      post.classList.toggle('expanded');
 
 
       button.textContent = post.classList.contains('expanded')
