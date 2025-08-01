@@ -1,25 +1,32 @@
-// Load environment variables from .env
-require('dotenv').config();
-
-// Core dependencies
 const express = require('express');
 const mongoose = require('mongoose');
 
+const bcrypt=require("bcrypt")
+const session=require("express-session");
+const { use } = require('react');
+
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
+const HOST = '192.168.1.14';
 
-// Middleware
-app.use(express.json()); // same as bodyParser.json()
-app.use(express.static('public')); // Serve frontend files from 'public' folder
+app.use(express.json());
+app.use(express.static('public'));
 
-// Mongoose connection
-mongoose.connect(process.env.MONGODB_URI, {
+app.use(session({
+  secret: 'crazysecret1102',
+  resave:false,
+  saveUninitialized:false,
+}));
+
+mongoose.connect('mongodb://localhost:27017/alarx-forum', {
   useNewUrlParser: true,
   useUnifiedTopology: true
-}).then(() => {
-  console.log('✅ Connected to MongoDB Atlas');
-}).catch((err) => {
-  console.error('❌ Error connecting to MongoDB Atlas:', err);
+})
+.then(() => {
+  console.log('✅ Connected to MongoDB');
+})
+.catch(err => {
+  console.error('❌ Failed to connect to MongoDB:', err.message);
 });
 
 const userSchema = new mongoose.Schema({
@@ -128,5 +135,5 @@ app.post('/api/logout', (req, res) => {
 
 
 app.listen(PORT, () => {
-  console.log(`yes`);
+  console.log(`Server running at http://${HOST}:${PORT}`);
 });
