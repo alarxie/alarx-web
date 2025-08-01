@@ -6,8 +6,8 @@ const session=require("express-session");
 const { use } = require('react');
 
 const app = express();
-const PORT = 3000;
-const HOST = '192.168.1.14';
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
 
 app.use(express.json());
 app.use(express.static('public'));
@@ -130,10 +130,4 @@ app.post('/api/logout', (req, res) => {
   req.session.destroy(() => {
     res.json({ message: 'Logged out' });
   });
-});
-
-
-
-app.listen(PORT, () => {
-  console.log(`Server running at http://${HOST}:${PORT}`);
 });
