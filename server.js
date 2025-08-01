@@ -18,7 +18,7 @@ app.use(session({
   saveUninitialized:false,
 }));
 
-mongoose.connect('mongodb://localhost:27017/alarx-forum', {
+mongoose.connect('mongodb+srv://alarx:ddlcostslaps@cluster0.b6gn3zb.mongodb.net/alarx-forum/', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
