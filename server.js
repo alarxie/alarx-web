@@ -133,7 +133,7 @@ app.post('/api/posts', async (req, res) => {
 	<h1 class="post-title";font-size: 40;" class="mh">${subject}</h1>
 	<p>${usernameUsed}</p>
 	<p class="post-contentLarge"; style="line-height: 1;font-size: 20;" class="mp">${question}</p>
-	<p></p>
+	<p>${new Date(Date.now).toLocaleString()}</p>
 </div>
 
 </body>
