@@ -1,52 +1,50 @@
-
 <head>
-    <link rel="stylesheet" href="../ss.css">
+	<link rel="stylesheet" href="../ss.css">
 </head>
-
 <br>
-
 <body>
-    <h1 style="line-height: .1;" class="mh">[alarx-web]</h1>
-    <p style="font-size: 30;line-height: .1;" class="mp">> post</p>
+	<h1 style="line-height: .1;" class="mh">[alarx-web]</h1>
+	<p style="font-size: 30;line-height: .1;" class="mp">> post</p>
 </body>
-
 <ul>
-      <li><a class="../home" href="..\home">home</a></li>
-      <li><a class="../forums" href="../forums">forums</a></li>
-      <li><a class="../people" href="../people">people</a></li>
-      <li><a class="../rules" href="../rules">rules</a></li>
-      <li><a class="../account" href="../account">account</a></li>
-      <li><a class="../more" href="../more">more</a></li>
+	<li><a class="../home" href="..\home">home</a></li>
+	<li><a class="../forums" href="../forums">forums</a></li>
+	<li><a class="../people" href="../people">people</a></li>
+	<li><a class="../rules" href="../rules">rules</a></li>
+	<li><a class="../account" href="../account">account</a></li>
+	<li><a class="../more" href="../more">more</a></li>
 </ul>
-
 <body>
-      <p style="font-size: 20;" class="mp">post anything!</p>
-  <form id="postForm">
-    <input maxlength="60" autocomplete="off" style="width: 40%; height: 5%; font-size: 25;font-weight: bolder;" type="text" id="subject" placeholder="[title]" required></input><br>
-    <textarea maxlength="2000" style="width: 50%; height: 40%;font-size: 15" id="question" placeholder="[go on...]" required></textarea><br>
-    <button style="width: 10%; height: 5%; font-size: large;font-weight: bolder;" type="submit">submit</button>
-  </form>
-
-  <div id="posts"></div>
-
-  <script>
-    const form = document.getElementById('postForm');
-    const postsDiv = document.getElementById('posts');
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const subject = document.getElementById('subject').value;
-      const question = document.getElementById('question').value;
-
-      await fetch('/api/posts', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ subject, question }),
-        credentials: 'include', // 👈 this sends the session cookie!
-      });
-
-      form.reset();
-      window.location.href="../forums"
-    });
-  </script>
+	<p style="font-size: 20;" class="mp">post anything!</p>
+	<form id="postForm">
+		<input maxlength="60" autocomplete="off" style="width: 40%; height: 5%; font-size: 25;font-weight: bolder;" type="text" id="subject" placeholder="[title]" required></input><br>
+		<textarea maxlength="2000" style="width: 50%; height: 40%;font-size: 15" id="question" placeholder="[go on...]" required></textarea><br>
+		<button style="width: 10%; height: 5%; font-size: large;font-weight: bolder;" type="submit">submit</button>
+	</form>
+	<div id="posts"></div>
+	<script>
+		const form = document.getElementById('postForm');
+		const postsDiv = document.getElementById('posts');
+		
+		form.addEventListener('submit', async (e) => {
+		  e.preventDefault();
+		  const subject = document.getElementById('subject').value;
+		  const question = document.getElementById('question').value;
+		
+		  fetch('/api/posts', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ subject, question })
+})
+.then(res => res.json())
+.then(data => {
+  if (data.redirectUrl) {
+    window.location.href = data.redirectUrl;  // 🚀 Redirect user
+  }
+});
+		
+		  form.reset();
+		  //window.location.href="../forums"
+		});
+	</script>
 </body>
